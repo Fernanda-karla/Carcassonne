@@ -34,7 +34,16 @@ public class Partida {
 	}
 
 	public Partida girarTile() {
-		proximoTile.girar();
+		
+		if(statusTurno == Status.TILE_POSICIONADO) {
+			throw new ExcecaoJogo("Não pode girar tile já posicionado");
+		}
+		if(proximoTile == null) {
+			statusPartida = Status.PARTIDA_FINALIZADA;
+			throw new ExcecaoJogo("Não pode girar tiles com a partida finalizada");
+		}
+		proximoTile.girar(); 
+
 		return this;
 	}
 
