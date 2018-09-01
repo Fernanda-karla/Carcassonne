@@ -8,6 +8,9 @@ public class Partida {
 	private BolsaDeTiles tiles;
 	private Tile proximoTile;
 	private TabuleiroFlexivel tabuleiro = new TabuleiroFlexivel("  ");
+	
+	Status statusTurno = Status.TURNO_INICIO;
+	Status statusPartida;
 
 	Partida(BolsaDeTiles tiles) {
 		this.tiles = tiles;
@@ -23,6 +26,10 @@ public class Partida {
 	}
 	
 	public String relatorioTurno() {
+		if(proximoTile == null) {
+			statusPartida = Status.PARTIDA_FINALIZADA;
+			throw new ExcecaoJogo("Partida finalizada");
+		}
 		return null;
 	}
 
@@ -33,11 +40,14 @@ public class Partida {
 
 	private void pegarProximoTile() {
 		proximoTile = tiles.pegar();
-		proximoTile.reset();
+		if(proximoTile != null) {
+			proximoTile.reset();
+		}
 	}
 
 	public Partida finalizarTurno() {
 		pegarProximoTile();
+		statusPartida = Status.PARTIDA_FINALIZADA;
 		return this;
 	}
 
