@@ -92,7 +92,9 @@ public class Partida {
 	}
 
 	private void verificarPosicaoTile() {
-		// TODO Auto-generated method stub
+		if (statusTurno == Status.TILE_POSICIONADO) {
+			throw new ExcecaoJogo("Não pode reposicionar tile já posicionado");
+		}
 		
 	}
 
@@ -155,12 +157,7 @@ public class Partida {
 	}
 
 	public String relatorioTabuleiro(String configuracao) {
-		return configuracao;
-	}
-	public void verificarTilePosicionado() {
- 		if (statusTurno == Status.TILE_POSICIONADO) {
-			throw new ExcecaoJogo("Não pode reposicionar tile já posicionado");
-		}
+		return tabuleiro.toString();
 	}
 
 	public void verificarFimDaPartida() {
