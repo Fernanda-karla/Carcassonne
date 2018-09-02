@@ -8,9 +8,10 @@ public class Partida {
 	private BolsaDeTiles tiles;
 	private Tile proximoTile;
 	private TabuleiroFlexivel tabuleiro = new TabuleiroFlexivel("  ");
-	
-	Status statusTurno = Status.TURNO_INICIO;
+	Status statusTurno = Status.TILE_POSICIONADO;
 	Status statusPartida;
+	int indiceJogadorDaVez = 0;
+	
 
 	Partida(BolsaDeTiles tiles) {
 		this.tiles = tiles;
@@ -56,7 +57,12 @@ public class Partida {
 
 	public Partida finalizarTurno() {
 		pegarProximoTile();
-		statusPartida = Status.PARTIDA_FINALIZADA;
+		indiceJogadorDaVez++;
+		statusTurno = Status.TURNO_INICIO;
+		if(proximoTile == null) {
+			statusPartida = Status.PARTIDA_FINALIZADA;
+		}
+
 		return this;
 	}
 
