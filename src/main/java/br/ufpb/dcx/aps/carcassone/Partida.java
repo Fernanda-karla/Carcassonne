@@ -87,6 +87,7 @@ public class Partida {
 	public Partida posicionarTile(Tile tileReferencia, Lado ladoTileReferencia) {
 		verificarPosicaoTile();
  		tabuleiro.posicionar(tileReferencia, ladoTileReferencia, proximoTile);
+ 		statusTurno = Status.TILE_POSICIONADO;
  		return this;
 
 	}
