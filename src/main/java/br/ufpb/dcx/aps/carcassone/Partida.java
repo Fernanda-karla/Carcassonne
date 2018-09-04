@@ -39,13 +39,6 @@ public class Partida {
 		}
 		return null;
 	}
-	
-	public void fimPartida() {
-		if(proximoTile == null) {
-			statusPartida = Status.PARTIDA_FINALIZADA;
-				throw new ExcecaoJogo("Partida finalizada");
-			}
-	}
 
 	public Partida girarTile() {
 		
@@ -75,12 +68,6 @@ public class Partida {
 		seForNulo();
 		return this;
 	}
-	
-	public void seForNulo() {
-		if(proximoTile == null) {
-			statusPartida = Status.PARTIDA_FINALIZADA;
-		}
-	}
 
 	public Partida posicionarTile(Tile tileReferencia, Lado ladoTileReferencia) {
 		verificarPosicaoTile();
@@ -98,35 +85,12 @@ public class Partida {
 	}
 
 	public Partida posicionarMeepleEstrada(Lado lado) {
-		if (lado == Lado.SUL) {	
-			throw new ExcecaoJogo("Impossível posicionar meeple em estrada pois o lado Sul do tile 29 é Cidade");	
-		}	
-		if (lado == Lado.LESTE) {	
- 		}	
-		if (lado == Lado.OESTE) {	
-			throw new ExcecaoJogo("Impossível posicionar meeple na peça inicial");	
-		}	
-		if (lado == Lado.NORTE) {	
-			throw new ExcecaoJogo("Impossível posicionar meeple em estrada pois o lado Norte do tile 29 é Campo");	
-		}	
 		return this;
 	}
 
 
 
 	public Partida posicionarMeepleCampo(Vertice vertice) {
-		switch (vertice) {	
-		case SUDESTE:	
-			vertice = Vertice.SUDESTE;	
-			throw new ExcecaoJogo(	
-					"");	
- 		case SUDOESTE:	
-			vertice = Vertice.SUDOESTE;	
-			throw new ExcecaoJogo(	
-					"");	
-		default:	
-			break;	
-		}	
 		return this;
 
 	}
@@ -158,26 +122,17 @@ public class Partida {
 	public String relatorioTabuleiro() {
 		return tabuleiro.toString();
 	}
-
-	public void verificarFimDaPartida() {
-		if (proximoTile == null) {
-			statusPartida = Status.PARTIDA_FINALIZADA;
-			throw new ExcecaoJogo("Partida finalizada");
-		}
-
-	}
-
-	public void verificaTileNulo() {
-		if (proximoTile == null) {
-			statusPartida = Status.PARTIDA_FINALIZADA;
-		}
-
-	}
 	
 	public void adicionarCorJogador(Cor... sequencia ) {
 		jogador = new Jogador[sequencia.length];
  		for (int i = 0; i < sequencia.length; ++i) {
  			jogador[i] = new Jogador(sequencia[i]);
  		}
+	}
+	
+	public void seForNulo() {
+		if(proximoTile == null) {
+			statusPartida = Status.PARTIDA_FINALIZADA;
+		}
 	}
 }
