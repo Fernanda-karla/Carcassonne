@@ -24,27 +24,20 @@ public class Partida {
 
 	}
 
-	public String relatorioPartida() {
-		String relatorio = "Status: " + statusPartida + "\nJogadores: " + relatoJogador();
-		
-		return relatorio;
-	}
-	
-	public String relatoJogador() {
-		String relatorio ="";
-		for (int i = 0; i < jogador.length - 1; i++) {
-			relatorio += jogador[i].toString() + "; ";
-		}
-		relatorio += jogador[jogador.length - 1];
-		return relatorio;
+	public String relatorioPartida(String status, String sequencia) {
+		return "Status: " + status + "\nJogadores: " + sequencia;
 	}
 
+	public String relatorioTurno(String jogador, String tile, String status) {
+		return "Jogador: " + jogador + "\nTile: " + tile + "\nStatus: " + status;
+	}
 	
 	public String relatorioTurno() {
-		fimPartida();
-		Jogador proximoJogador = jogador[indiceJogadorDaVez%jogador.length];
-		String relatorio = "Jogador: " + proximoJogador.getCor() + "\nTile: " + proximoTile + "\nStatus: " + statusTurno;
-		return relatorio;
+		if(proximoTile == null) {
+			statusPartida = Status.PARTIDA_FINALIZADA;
+			throw new ExcecaoJogo("Partida finalizada");
+		}
+		return null;
 	}
 	
 	public void fimPartida() {
