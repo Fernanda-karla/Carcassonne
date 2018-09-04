@@ -18,38 +18,40 @@ public class Partida {
 	Partida(BolsaDeTiles tiles, Cor... sequencia) {
 		this.tiles = tiles;
 		pegarProximoTile();
-		
-		jogador = new Jogador[sequencia.length];
- 		for (int i = 0; i < sequencia.length; ++i) {
- 			jogador[i] = new Jogador(sequencia[i]);
- 		}
+		adicionarCorJogador(sequencia);
  		statusPartida = Status.PARTIDA_ANDAMENTO;
  		tabuleiro.adicionarPrimeiroTile(proximoTile);
 
-
 	}
 
-	public String relatorioPartida(String status, String sequencia) {
-		String relatorio = "";
- 		for (int i = 0; i < jogador.length - 1; i++) {
- 			relatorio += jogador[i].toString() + "; ";
- 		}
- 		relatorio += jogador[jogador.length - 1];
- 
- 		return "Status: " + statusPartida + "\nJogadores: " + relatorio;
-
-	}
-
-	public String relatorioTurno(String jogador, String tile, String status) {
-		return "Jogador: " + jogador + "\nTile: " + tile + "\nStatus: " + status;
+	public String relatorioPartida() {
+		String relatorio = "Status: " + statusPartida + "\nJogadores: " + relatoJogador();
+		
+		return relatorio;
 	}
 	
+	public String relatoJogador() {
+		String relatorio ="";
+		for (int i = 0; i < jogador.length - 1; i++) {
+			relatorio += jogador[i].toString() + "; ";
+		}
+		relatorio += jogador[jogador.length - 1];
+		return relatorio;
+	}
+
+	
 	public String relatorioTurno() {
+		fimPartida();
+		Jogador proximoJogador = jogador[indiceJogadorDaVez%jogador.length];
+		String relatorio = "Jogador: " + proximoJogador.getCor() + "\nTile: " + proximoTile + "\nStatus: " + statusTurno;
+		return relatorio;
+	}
+	
+	public void fimPartida() {
 		if(proximoTile == null) {
 			statusPartida = Status.PARTIDA_FINALIZADA;
-			throw new ExcecaoJogo("Partida finalizada");
-		}
-		return null;
+				throw new ExcecaoJogo("Partida finalizada");
+			}
 	}
 
 	public Partida girarTile() {
@@ -77,11 +79,14 @@ public class Partida {
 		pegarProximoTile();
 		indiceJogadorDaVez++;
 		statusTurno = Status.TURNO_INICIO;
+		seForNulo();
+		return this;
+	}
+	
+	public void seForNulo() {
 		if(proximoTile == null) {
 			statusPartida = Status.PARTIDA_FINALIZADA;
 		}
-
-		return this;
 	}
 
 	public Partida posicionarTile(Tile tileReferencia, Lado ladoTileReferencia) {
@@ -157,21 +162,29 @@ public class Partida {
 		return null;
 	}
 
-	public String relatorioTabuleiro(String configuracao) {
+	public String relatorioTabuleiro() {
 		return tabuleiro.toString();
 	}
 
 	public void verificarFimDaPartida() {
 		if (proximoTile == null) {
 			statusPartida = Status.PARTIDA_FINALIZADA;
-		}
 			throw new ExcecaoJogo("Partida finalizada");
 		}
+
+	}
 
 	public void verificaTileNulo() {
 		if (proximoTile == null) {
 			statusPartida = Status.PARTIDA_FINALIZADA;
 		}
 
+	}
+	
+	public void adicionarCorJogador(Cor... sequencia ) {
+		jogador = new Jogador[sequencia.length];
+ 		for (int i = 0; i < sequencia.length; ++i) {
+ 			jogador[i] = new Jogador(sequencia[i]);
+ 		}
 	}
 }
