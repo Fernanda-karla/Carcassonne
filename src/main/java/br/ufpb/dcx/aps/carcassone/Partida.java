@@ -139,4 +139,12 @@ public class Partida {
 			statusPartida = Status.PARTIDA_FINALIZADA;
 		}
 	}
+	public int pontuacaoMeepleEstrada(Cor cor){
+		return 0;
+		
+	}
+	public int pontuacaoMeepleEstradaComPousada(Cor cor){
+		int pontos=0;
+		return pontos+2;
+	}
 }
