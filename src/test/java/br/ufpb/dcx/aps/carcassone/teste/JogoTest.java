@@ -403,11 +403,14 @@ public class JogoTest {
 	public void verificarEstrada() {
 		mockarTiles(tiles, t30);
 		Partida partida = jogo.criarPartida(tiles, AMARELO, VERMELHO);
+		partida.finalizarTurno();
 		
 		Assert.assertEquals("30(O,L)", partida.getEstradas());
 		
-		ocorreExcecaoJogo(() -> partida.posicionarMeepleEstrada(OESTE),
+		ocorreExcecaoJogo(() -> partida.posicionarMeepleEstrada(NORTE),
 				"Impossível posicionar meeple na peça inicial");
+		
+		Assert.assertEquals("30(O,L)", partida.getPousadas());
 
 		Assert.assertEquals("30(O,L)", partida.getEstradas());
 	}
