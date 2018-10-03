@@ -645,5 +645,26 @@ public class JogoTest {
 	private void verificarRelatorioTabuleiro(Partida partida, String configuracao) {
 		Assert.assertEquals(configuracao, partida.relatorioTabuleiro());
 	}
+	
+	@Test
+ 	public void tileComMaisDeUmaEstradaComPousada(){
+ 		mockarTiles(tiles, t30, t49, t72);
+ 		Partida partida = jogo.criarPartida(tiles, AMARELO, VERMELHO);
+ 		partida.finalizarTurno();
+ 		girar(partida, 1);
+ 		partida.posicionarTile(t30, LESTE);
+ 		partida.posicionarMeepleEstrada(LESTE);
+ 		partida.finalizarTurno();
+ 		partida.posicionarTile(t30, OESTE);
+ 		partida.posicionarMeepleEstrada(NORTE);
+ 		partida.posicionarMeepleEstrada(OESTE);
+ 		partida.pontuacaoMeepleEstradaComPousada(VERMELHO);
+ 		partida.finalizarTurno();
+
+ 		verificarRelatorioPartida(partida, "Em_Andamento", "AMARELO(0,5); VERMELHO(0,6)");
+ 		verificarRelatorioTurno(partida, "AMARELO", "72N", "Meeple_Posicionado");
+ 		verificarRelatorioTabuleiro(partida, "30N49L\n72N");
+
+ 	}
 
 }
