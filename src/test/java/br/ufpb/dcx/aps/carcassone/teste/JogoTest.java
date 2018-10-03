@@ -594,7 +594,29 @@ public class JogoTest {
 		partida.posicionarTile(t30, LESTE);
 		partida.posicionarMeepleEstrada(LESTE);
 		ocorreExcecaoJogo(() -> partida.posicionarMeepleEstrada(LESTE), "Tile já contém Meeple");
+		
 	}
+		
+		@Test
+		public  void  pontuacaoEstrada () {
+			mockarTiles (tiles, t30, t49, t72);
+			Partida partida = jogo . criarPartida (tiles, AMARELO , VERMELHO);
+			partida . finalizarTurno ();
+			girar (partida, 1);
+			partida.posicionarTile (t30, LESTE);
+			partida.posicionarMeepleEstrada (LESTE);
+			partida.finalizarTurno ();
+			partida.posicionarTile (t30, OESTE);
+			partida.finalizarTurno ();
+			Assert.assertEquals (partida . pontuacaoMeepleEstrada (VERMELHO), 0);
+			partida.pontuacaoMeepleEstradaComPousada(AMARELO);
+			Assert.assertEquals(partida.pontuacaoMeepleEstradaComPousada(AMARELO), 2);
+
+			verificarRelatorioPartida (partida, " Em_Andamento " , " AMARELO (0,7); VERMELHO (0,6) ");
+			verificarRelatorioTurno (partida, " VERMELHO " , " 51N " , " Meeple_Posicionado ");
+			verificarRelatorioTabuleiro (partida,"30N49L\n 72N ");
+		}
+	
 	
 	private void girar(Partida partida, int quantidade) {
 		for (int i = 0; i < quantidade; i++) {
