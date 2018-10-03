@@ -489,6 +489,7 @@ public class JogoTest {
 		partida.posicionarMeepleEstrada(OESTE);
 		partida.finalizarTurno();
 		Assert.assertEquals("30(O,L) 64(O,L-AMARELO)\n51(O-VERMELHO,S)", partida.getEstradas());
+		partida.posicionarTile(t51, LESTE);
 		
 		girar(partida, 1);
 		partida.posicionarTile(t64, LESTE);
@@ -513,7 +514,8 @@ public class JogoTest {
 	public void posicionarMeepleCampoSemCampo() {
 		mockarTiles(tiles, t30, t02);
 		Partida partida = jogo.criarPartida(tiles, AMARELO, VERMELHO);
-		girar(partida, 2);
+		girar(partida, 1);
+		
 		partida.posicionarTile(t30, SUL);
 
 		ocorreExcecaoJogo(() -> partida.posicionarMeepleCampo(SUDESTE),
