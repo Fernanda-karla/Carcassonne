@@ -118,6 +118,10 @@ public class Partida {
 	public String getMosteiros() {
 		return null;
 	}
+	
+	public String getPousadas(){
+		return null;
+	}
 
 	public String relatorioTabuleiro() {
 		return tabuleiro.toString();
