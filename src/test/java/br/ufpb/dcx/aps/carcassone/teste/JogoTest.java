@@ -585,6 +585,17 @@ public class JogoTest {
 		Assert.assertEquals("30(NO,NE) 51(NO,NE,SE-VERMELHO)\n30(SO,SE) 02(NO,NE) 51(SO)", partida.getCampos());
 	}
 	
+	@Test
+	public void estradaComDoisMeeplesSemPousada(){
+		mockarTiles(tiles, t30,t64);
+		Partida partida = jogo.criarPartida(tiles, AMARELO, VERMELHO);
+		partida.finalizarTurno();
+		girar(partida,1);
+		partida.posicionarTile(t30, LESTE);
+		partida.posicionarMeepleEstrada(LESTE);
+		ocorreExcecaoJogo(() -> partida.posicionarMeepleEstrada(LESTE), "Tile já contém Meeple");
+	}
+	
 	private void girar(Partida partida, int quantidade) {
 		for (int i = 0; i < quantidade; i++) {
 			partida.girarTile();
