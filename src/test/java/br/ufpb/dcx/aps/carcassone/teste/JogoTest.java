@@ -424,16 +424,20 @@ public class JogoTest {
 	public void estradaComDoisTilesMeeple() {
 		mockarTiles(tiles, t30, t64);
 		Partida partida = jogo.criarPartida(tiles, AMARELO, VERMELHO);
+		partida.finalizarTurno();
 		girar(partida, 1);
 
 		partida.posicionarTile(t30, LESTE);
 		Assert.assertEquals("30(O,L) 64(O,L)", partida.getEstradas());
+		Assert.assertEquals("30(O,L) 64(O,L)", partida.getPousadas());
 
 		partida.posicionarMeepleEstrada(LESTE);
 		Assert.assertEquals("30(O,L) 64(O,L-AMARELO)", partida.getEstradas());
+		Assert.assertEquals("30(O,L) 64(O,L)", partida.getPousadas());
 
 		partida.finalizarTurno();
 		Assert.assertEquals("30(O,L) 64(O,L-AMARELO)", partida.getEstradas());
+		Assert.assertEquals("30(O,L) 64(O,L)", partida.getPousadas());
 		
 		verificarRelatorioPartida(partida, "Partida_Finalizada", "AMARELO(0,7); VERMELHO(0,7)");
 		ocorreExcecaoJogo(() -> partida.relatorioTurno(), "Partida finalizada");
